@@ -1,5 +1,11 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
+    http_client:
+        scoped_clients:
+            shift4.client:
+                base_uri: 'https://api.shift4.com/'
+                # HTTP Basic authentication
+#                auth_basic: '%env(SHIFT4_USER)%:'
     secret: '%env(APP_SECRET)%'
     annotations: false
     http_method_override: false
