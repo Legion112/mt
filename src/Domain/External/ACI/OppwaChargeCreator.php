@@ -20,10 +20,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final readonly class OppwaChargeCreator implements CreateChargeInterface
 {
-    public function __construct(private HttpClientInterface $oppwaClient, private SerializerInterface $serializer, private LoggerInterface $logger)
+    public function __construct(private HttpClientInterface $oppwaClient, private SerializerInterface $serializer)
     {
     }
 
+    #[\Override]
     public function createCharge(CreateChargeRequest $request): CreateChargeResponse
     {
         $response = $this->oppwaClient->request(

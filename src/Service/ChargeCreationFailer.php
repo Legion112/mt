@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-class ChargeCreationFailer extends \Exception
+final class ChargeCreationFailer extends \Exception
 {
 
 }

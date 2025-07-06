@@ -23,6 +23,7 @@ final class Shift4ChargeCreator implements CreateChargeInterface
 
     /**
      * @throws ChargeCreationFailer
+     * @psalm-suppress MixedArgument
      */
     #[\Override]
     public function createCharge(CreateChargeRequest $request): CreateChargeResponse

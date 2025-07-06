@@ -27,6 +27,7 @@ final class CreateChargeCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this->addArgument(
@@ -44,6 +45,8 @@ final class CreateChargeCommand extends Command
     }
 
 
+    /** @psalm-suppress MixedArgument */
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $chargeProvider = $this->chargeFactory->createChargeProvider($input->getArgument('provider'));

@@ -13,7 +13,6 @@ final readonly class CardExpiration
         public int    $year,
     )
     {
-        assert();
         assert($this->year >= 0);
     }
 }
