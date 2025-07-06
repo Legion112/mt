@@ -5,6 +5,7 @@ namespace App\Domain\External\Shift4;
 
 use App\Domain\CreateChargeRequest;
 use App\Domain\CreateChargeResponse;
+use App\Service\ChargeCreationFailer;
 use App\Service\CreateChargeInterface;
 use Money\Currency;
 use Money\Money;
@@ -21,25 +22,29 @@ final class Shift4ChargeCreator implements CreateChargeInterface
     }
 
     /**
-     * @throws MappingException
+     * @throws ChargeCreationFailer
      */
     #[\Override]
     public function createCharge(CreateChargeRequest $request): CreateChargeResponse
     {
-        $charge = $this->shift4Gateway->createCharge(
-            new ChargeRequest(
-                [
-                    'amount' => $request->amount->getAmount(),
-                    'currency' => $request->amount->getCurrency()->getCode(),
-                    'card' => [
-                        'number' => $request->card->number,
-                        'expMonth' => $request->card->expiration->month,
-                        'expYear' => $request->card->expiration->year,
-                        'cvc' => $request->card->cvv
-                    ],
-                ]
-            )
-        );
+        try {
+            $charge = $this->shift4Gateway->createCharge(
+                new ChargeRequest(
+                    [
+                        'amount' => $request->amount->getAmount(),
+                        'currency' => $request->amount->getCurrency()->getCode(),
+                        'card' => [
+                            'number' => $request->card->number,
+                            'expMonth' => $request->card->expiration->month,
+                            'expYear' => $request->card->expiration->year,
+                            'cvc' => $request->card->cvv
+                        ],
+                    ]
+                )
+            );
+        } catch (\Exception $e) {
+            throw new ChargeCreationFailer($e->getMessage(), previous: $e);
+        }
 
         return new CreateChargeResponse(
             $charge->getId(),

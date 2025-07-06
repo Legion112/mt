@@ -37,3 +37,17 @@ Example output:
   "cardBin": "424242"
 }
 ```
+
+### Setting up via docker
+
+
+### Running test
+Test make real request to external system and needs setting up keys 
+```bash
+touch .env.test.local
+```
+Add there keys 
+```dotenv
+SHIFT4_USER=
+OPPWA_TOKEN=
+```

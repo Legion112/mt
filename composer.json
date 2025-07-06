@@ -7,6 +7,7 @@
         "php": "^8.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "api-platform/symfony": "^4.1",
         "moneyphp/money": "^3.3",
         "phpdocumentor/reflection-docblock": "^5.6",
         "phpstan/phpdoc-parser": "^2.1",
@@ -72,7 +73,9 @@
         }
     },
     "require-dev": {
+        "justinrainbow/json-schema": "^6.4",
         "phpunit/phpunit": "^12.2",
+        "symfony/browser-kit": "6.4.*",
         "symfony/maker-bundle": "^1.64",
         "vimeo/psalm": "^6.12"
     }

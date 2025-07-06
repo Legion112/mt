@@ -1,0 +1,19 @@
+services:
+  php-fpm:
+    build:
+      context: .
+      dockerfile: docker/fpm/Dockerfile
+    volumes:
+      - .:/app
+    working_dir: /app
+
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./public:/var/www/html/public
+    depends_on:
+      - php-fpm
