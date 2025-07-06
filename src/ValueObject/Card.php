@@ -5,13 +5,11 @@ namespace App\ValueObject;
 
 use JetBrains\PhpStorm\Immutable;
 
-#[Immutable]
-class Card
+final readonly class Card
 {
     public function __construct(
         public string $number,
-        public string $expMonth,
-        public string $expYear,
+        public CardExpiration $expiration,
         public string $cvv,
     )
     {

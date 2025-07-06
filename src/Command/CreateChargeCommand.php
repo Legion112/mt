@@ -6,6 +6,7 @@ use App\Domain\CreateChargeRequest;
 use App\Service\ChargeFactory;
 use App\Service\CreateChargeInterface;
 use App\ValueObject\Card;
+use App\ValueObject\CardExpiration;
 use Money\Currency;
 use Money\Money;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -42,11 +43,13 @@ final class CreateChargeCommand extends Command
         $chargeProvider = $this->chargeFactory->createChargeProvider($input->getArgument('provider'));
 
         $request = new CreateChargeRequest(
-            amount: new Money(10_00, new Currency('EURO')),
+            amount: Money::EUR(10_00),
             card: new Card(
-                "0000000000000",
-                "11",
-                "26",
+                "4242424242424242",
+                new CardExpiration(
+                    11,
+                    2026,
+                ),
                 "336"
             ),
         );

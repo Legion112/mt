@@ -7,16 +7,42 @@ use App\Domain\CreateChargeRequest;
 use App\Domain\CreateChargeResponse;
 use App\Service\CreateChargeInterface;
 use Money\Money;
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class Shift4Charge implements CreateChargeInterface
 {
-    public function __construct(private HttpClientInterface $shift4Client)
+    public function __construct(private HttpClientInterface $shift4Client, private LoggerInterface $logger)
     {
     }
 
+    #[\Override]
     public function createCharge(CreateChargeRequest $request): CreateChargeResponse
     {
+        $response = $this->shift4Client->request(
+            'POST',
+            'charges',
+            [
+                'json' =>[
+                    'amount' => $request->amount->getAmount(),
+                    'currency' => $request->amount->getCurrency()->getCode(),
+                    'card' => [
+                        'number' => $request->card->number,
+                        'expMonth' => $request->card->expiration->month,
+                        'expYear' => $request->card->expiration->year,
+                        'cvc' => $request->card->cvv
+                    ],
+                ]
+            ],
+        );
+
+        $this->logger->debug(
+            'Create charge response: {body}',
+            [
+                'response' => $response,
+                'body' => $response->getContent(false),
+            ]
+        );
 
         return new CreateChargeResponse(
             "abc",
