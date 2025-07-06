@@ -1,0 +1,7 @@
+framework:
+  http_client:
+    scoped_clients:
+      oppwa.client:
+        base_uri: '%env(OPPWA_BASE_URI)%'
+        # HTTP Basic authentication
+        auth_bearer: '%env(OPPWA_TOKEN)%'
