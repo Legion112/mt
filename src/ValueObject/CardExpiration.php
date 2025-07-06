@@ -6,11 +6,11 @@ namespace App\ValueObject;
 final readonly class CardExpiration
 {
     public function __construct(
-        /** @int-range<1,12> */
         public int $month,
-        /** @positive-int */
         public int $year,
     )
     {
+        assert($this->month >= 1 && $this->month <= 12);
+        assert($this->year >= 0);
     }
 }

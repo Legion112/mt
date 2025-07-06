@@ -8,10 +8,10 @@ use Money\Money;
 final readonly class CreateChargeResponse
 {
     public function __construct(
-        public string $transactionId,
-        public \DateTimeImmutable $date,
-        public Money $amount,
-        public string $cardBin,
+        public string             $transactionId,
+        public \DateTimeImmutable $createdAt,
+        public Money              $amount,
+        public string             $cardBin,
     )
     {
     }

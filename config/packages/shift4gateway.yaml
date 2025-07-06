@@ -1,0 +1,4 @@
+services:
+  Shift4\Shift4Gateway:
+    arguments:
+      $privateKey: '%env(SHIFT4_USER)%'

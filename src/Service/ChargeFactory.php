@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Domain\External\Shift4\Shift4Charge;
+use App\Domain\External\Shift4\Shift4ChargeCreator;
 
 final readonly class ChargeFactory
 {
-    public function __construct(private Shift4Charge $shift4Charge)
+    public function __construct(private Shift4ChargeCreator $shift4Charge)
     {
     }
 
