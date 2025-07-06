@@ -57,7 +57,7 @@ final class CreateChargeCommand extends Command
             card: new Card(
                 $input->getArgument('card-number'),
                 new CardExpiration(
-                    (int)$input->getArgument('card-exp-month'),
+                    $input->getArgument('card-exp-month'),
                     (int)$input->getArgument('card-exp-year'),
                 ),
                 $input->getArgument('card-cvv')

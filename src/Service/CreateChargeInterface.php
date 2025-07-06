@@ -8,5 +8,8 @@ use App\Domain\CreateChargeResponse;
 
 interface CreateChargeInterface
 {
+    /**
+     * @throws ChargeCreationFailer
+     */
     public function createCharge(CreateChargeRequest $request): CreateChargeResponse;
 }

@@ -5,6 +5,7 @@ namespace App\Domain\External\ACI;
 
 use App\Domain\CreateChargeRequest;
 use App\Domain\CreateChargeResponse;
+use App\Service\ChargeCreationFailer;
 use App\Service\CreateChargeInterface;
 use Money\Currency;
 use Money\Money;
@@ -23,12 +24,6 @@ final readonly class OppwaChargeCreator implements CreateChargeInterface
     {
     }
 
-    /**
-     * @throws TransportExceptionInterface
-     * @throws ServerExceptionInterface
-     * @throws RedirectionExceptionInterface
-     * @throws ClientExceptionInterface
-     */
     public function createCharge(CreateChargeRequest $request): CreateChargeResponse
     {
         $response = $this->oppwaClient->request(
@@ -49,20 +44,17 @@ final readonly class OppwaChargeCreator implements CreateChargeInterface
                 ]
             ]
         );
-        try {
-            $paymentResponse = $this->serializer->deserialize(
-                $response->getContent(),
-                PerformPaymentResponse::class,
-                'json'
+        if ($response->getStatusCode() !== 200) {
+            throw new ChargeCreationFailer(
+                $response->getContent(false)
             );
-        } catch (\Exception $exception) {
-            $this->logger->error(
-                'Error: {body}',
-                ['body' => $response->getContent(false)]
-            );
-            throw $exception;
         }
 
+        $paymentResponse = $this->serializer->deserialize(
+            $response->getContent(false),
+            PerformPaymentResponse::class,
+            'json'
+        );
 
         return new CreateChargeResponse(
             $paymentResponse->id,

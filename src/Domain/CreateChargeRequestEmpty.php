@@ -1,0 +1,16 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Domain;
+
+use App\ValueObject\Card;
+use Money\Money;
+
+final readonly class CreateChargeRequestEmpty
+{
+    public function __construct(
+        public string $bar,
+    )
+    {
+    }
+}
