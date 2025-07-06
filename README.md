@@ -39,6 +39,31 @@ Example output:
 ```
 
 ### Setting up via docker
+```bash
+docker compose up -d
+```
+To make a request
+```curl
+curl -X POST --location "http://localhost:8000/charge/Shift4" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{
+            "amount": {
+                "amount": "1000",
+                "currency": {
+                  "code": "EUR"
+                }
+            },
+            "card": {
+              "number": "4242424242424242",
+              "expiration": {
+                "month": "01",
+                "year": 2026
+              },
+              "cvv": "012"
+            }
+        }'
+```
 
 
 ### Running test
