@@ -82,6 +82,15 @@ Add there keys
 SHIFT4_USER=
 OPPWA_TOKEN=
 ```
+Test execution
+```bash
+docker compose exec php-fpm vendor/bin/phpunit
+```
+### Static code analyzer 
+```dotenv
+docker compose exec php-fpm vendor/bin/psalm
+```
+
 
 ### Clean up
 ```bash
