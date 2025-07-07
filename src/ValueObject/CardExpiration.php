@@ -8,7 +8,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 final readonly class CardExpiration
 {
     public function __construct(
-        #[Assert\Type('string')]
         public string $month,
         public int    $year,
     )
