@@ -1,7 +1,18 @@
+### Setting up via docker
+```bash
+docker compose up -d
+```
+Need to install composer dependencies
+```bash 
+docker compose exec php-fpm composer install 
+```
+
+
 ## Installation
-Set following env variables 
+Set following env variables in .env.local and .env.test.local 
 ```dotenv
 SHIFT4_USER=sk_test_TOKEN
+OPPWA_TOKEN=token
 ```
 
 
@@ -23,7 +34,7 @@ Arguments:
   currency              Currency
 ```
 ```bash
-bin/console app:create-charge -vvv Shift4 4242424242424242 11 2026 466 10.00 EUR
+docker compose exec php-fpm bin/console app:create-charge -vvv Shift4 4242424242424242 11 2026 466 10.00 EUR
 ```
 Example output:
 ```json
@@ -36,11 +47,6 @@ Example output:
   },
   "cardBin": "424242"
 }
-```
-
-### Setting up via docker
-```bash
-docker compose up -d
 ```
 To make a request
 ```curl
@@ -75,4 +81,9 @@ Add there keys
 ```dotenv
 SHIFT4_USER=
 OPPWA_TOKEN=
+```
+
+### Clean up
+```bash
+docker compose down
 ```
